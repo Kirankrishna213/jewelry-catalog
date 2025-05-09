@@ -6,7 +6,7 @@ function App() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/products')
+   axios.get(`${process.env.PROXY_API}/api/products`)
       .then(response => setProducts(response.data))
       .catch(error => console.error('Error:', error));
   }, []);
