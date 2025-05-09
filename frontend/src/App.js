@@ -1,23 +1,23 @@
-
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import './App.css';
 
 function App() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-   axios.get(`${process.env.PROXY_API}/api/products`)
+    axios.get('https://jewelry-catalog-1.onrender.com/api/products')
       .then(response => setProducts(response.data))
-      .catch(error => console.error('Error:', error));
+      .catch(error => console.error('Error fetching products:', error));
   }, []);
 
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>Jewelry Catalog</h1>
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
+    <div className="app">
+      <h1>Gold Jewelry Collection</h1>
+      <div className="products">
         {products.map(product => (
-          <div key={product.id} style={{ border: '1px solid #ddd', padding: '10px', width: '200px' }}>
-            <img src={product.image} alt={product.name} width="100%" />
+          <div key={product.id} className="product-card">
+            <img src={product.image} alt={product.name} />
             <h3>{product.name}</h3>
             <p>Weight: {product.weight}g</p>
             <p>Price: ₹{product.price}/g</p>
