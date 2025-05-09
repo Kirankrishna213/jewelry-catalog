@@ -1,1 +1,21 @@
 
+[
+  {
+    "id": 1,
+    "name": "Gold Necklace",
+    "price": 1299.99,
+    "image": "https://example.com/images/gold-necklace.jpg"
+  },
+  {
+    "id": 2,
+    "name": "Diamond Ring",
+    "price": 2599.49,
+    "image": "https://example.com/images/diamond-ring.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Silver Bracelet",
+    "price": 499.00,
+    "image": "https://example.com/images/silver-bracelet.jpg"
+  }
+]
