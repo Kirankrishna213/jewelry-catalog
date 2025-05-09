@@ -1,59 +1,47 @@
-from flask import Flask, jsonify, request, send_from_directory
+from flask import Flask, jsonify
 from flask_cors import CORS
 import os
-import uuid
-from werkzeug.utils import secure_filename
+import time
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={
+    r"/api/*": {"origins": "*"},
+    r"/uploads/*": {"origins": "*"}
+})
 
-# Configuration
-UPLOAD_FOLDER = 'uploads'
-ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif'}
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+# Health check endpoint
+@app.route('/api/health')
+def health_check():
+    return jsonify({
+        "status": "healthy",
+        "timestamp": time.time()
+    })
 
-# Create uploads directory if not exists
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)
-
-def allowed_file(filename):
-    return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-products = []
-
-@app.route('/api/products', methods=['GET', 'POST'])
-def handle_products():
-    if request.method == 'POST':
-        # Handle image upload
-        if 'image' not in request.files:
-            return jsonify({'error': 'No image uploaded'}), 400
-            
-        file = request.files['image']
-        if file.filename == '':
-            return jsonify({'error': 'No selected file'}), 400
-            
-        if file and allowed_file(file.filename):
-            filename = str(uuid.uuid4()) + '.' + file.filename.rsplit('.', 1)[1].lower()
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            
-            # Create new product
-            product = {
-                'id': str(uuid.uuid4()),
-                'name': request.form.get('name'),
-                'category': request.form.get('category'),
-                'weight': float(request.form.get('weight')),
-                'price': float(request.form.get('price')),
-                'description': request.form.get('description'),
-                'image': f'/uploads/{filename}'
-            }
-            products.append(product)
-            return jsonify(product), 201
+# Products endpoint with simulated delay for testing
+@app.route('/api/products')
+def get_products():
+    # Simulate database query
+    time.sleep(2)
     
-    return jsonify(products)
-
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
+    return jsonify([
+        {
+            "id": 1,
+            "name": "Classic Gold Necklace",
+            "category": "necklace",
+            "weight": 15.5,
+            "price": 4500,
+            "image": "/uploads/necklace.jpg"
+        },
+        {
+            "id": 2,
+            "name": "Diamond Ring",
+            "category": "ring", 
+            "weight": 8.2,
+            "price": 5200,
+            "image": "/uploads/ring.jpg"
+        }
+    ])
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, threaded=True)
