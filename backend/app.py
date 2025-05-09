@@ -1,31 +1,19 @@
 from flask import Flask, jsonify
-from flask_cors import CORS
+import json
 
 app = Flask(__name__)
-CORS(app)  # This enables CORS for all routes
 
-PRODUCTS = [
-    {
-        "id": 1,
-        "name": "Classic Gold Necklace",
-        "category": "necklace",
-        "weight": 15.5,
-        "price": 4500,
-        "image": "https://i.imgur.com/5R5hW9L.jpg"
-    },
-    {
-        "id": 2, 
-        "name": "Diamond Ring",
-        "category": "ring",
-        "weight": 8.2,
-        "price": 5200,
-        "image": "https://i.imgur.com/8LJjUdW.jpg"
-    }
-]
+@app.route('/')
+def home():
+    return "Jewelry Catalog API is running."
 
-@app.route('/api/products')
-def get_products():
-    return jsonify(PRODUCTS)
+@app.route('/products')
+def products():
+    with open('products.json') as f:
+        data = json.load(f)
+    return jsonify(data)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    import os
+    port = int(os.environ.get('PORT', 5000))  # Render uses a dynamic port
+    app.run(host='0.0.0.0', port=port)
