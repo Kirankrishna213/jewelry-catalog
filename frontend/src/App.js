@@ -1,3 +1,5 @@
+// frontend/src/App.js
+
 import React, { useEffect, useState } from "react";
 
 const API_URL = process.env.REACT_APP_API_URL;
@@ -9,7 +11,7 @@ function App() {
     fetch(`${API_URL}/products`)
       .then((res) => res.json())
       .then((data) => setProducts(data))
-      .catch((err) => console.error("Failed to fetch products:", err));
+      .catch((err) => console.error("Error fetching products:", err));
   }, []);
 
   return (
@@ -24,7 +26,12 @@ function App() {
               <h2>{item.name}</h2>
               <p>Price: ${item.price}</p>
               {item.image && (
-                <img src={item.image} alt={item.name} width="250" />
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  width="250"
+                  style={{ borderRadius: "8px" }}
+                />
               )}
             </li>
           ))}
