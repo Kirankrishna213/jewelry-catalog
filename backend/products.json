@@ -1,21 +1,20 @@
-
 [
   {
     "id": 1,
-    "name": "Gold Necklace",
+    "name": "Elegant Gold Necklace",
     "price": 1299.99,
-    "image": "https://example.com/images/gold-necklace.jpg"
+    "image": "https://images.pexels.com/photos/1457983/pexels-photo-1457983.jpeg"
   },
   {
     "id": 2,
-    "name": "Diamond Ring",
+    "name": "Diamond Engagement Ring",
     "price": 2599.49,
-    "image": "https://example.com/images/diamond-ring.jpg"
+    "image": "https://images.pexels.com/photos/1457984/pexels-photo-1457984.jpeg"
   },
   {
     "id": 3,
-    "name": "Silver Bracelet",
+    "name": "Silver Charm Bracelet",
     "price": 499.00,
-    "image": "https://example.com/images/silver-bracelet.jpg"
+    "image": "https://images.pexels.com/photos/1457985/pexels-photo-1457985.jpeg"
   }
 ]
