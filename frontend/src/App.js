@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+const API_URL = process.env.REACT_APP_API_URL;
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -9,22 +9,22 @@ function App() {
     fetch(`${API_URL}/products`)
       .then((res) => res.json())
       .then((data) => setProducts(data))
-      .catch((err) => console.error('Error fetching products:', err));
+      .catch((err) => console.error("Failed to fetch products:", err));
   }, []);
 
   return (
-    <div style={{ padding: '2rem', fontFamily: 'Arial' }}>
+    <div style={{ padding: "2rem", fontFamily: "Arial" }}>
       <h1>Jewelry Catalog</h1>
       {products.length === 0 ? (
-        <p>Loading products...</p>
+        <p>Loading...</p>
       ) : (
-        <ul style={{ listStyle: 'none', padding: 0 }}>
-          {products.map((product) => (
-            <li key={product.id} style={{ marginBottom: '2rem', borderBottom: '1px solid #ccc' }}>
-              <h2>{product.name}</h2>
-              <p>Price: ${product.price}</p>
-              {product.image && (
-                <img src={product.image} alt={product.name} width="200" style={{ borderRadius: '8px' }} />
+        <ul style={{ listStyle: "none", padding: 0 }}>
+          {products.map((item) => (
+            <li key={item.id} style={{ marginBottom: "2rem" }}>
+              <h2>{item.name}</h2>
+              <p>Price: ${item.price}</p>
+              {item.image && (
+                <img src={item.image} alt={item.name} width="250" />
               )}
             </li>
           ))}
