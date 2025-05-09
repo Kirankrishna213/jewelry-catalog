@@ -1,29 +1,25 @@
-
-from flask import Flask, jsonify, send_from_directory
+from flask import Flask, jsonify
 from flask_cors import CORS
-import json
-import os
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for React frontend
+CORS(app)  # This enables CORS for all routes
 
-# Sample data
 PRODUCTS = [
     {
         "id": 1,
-        "name": "Gold Necklace",
+        "name": "Classic Gold Necklace",
         "category": "necklace",
         "weight": 15.5,
         "price": 4500,
-        "image": "https://via.placeholder.com/300"
+        "image": "https://i.imgur.com/5R5hW9L.jpg"
     },
     {
-        "id": 2,
+        "id": 2, 
         "name": "Diamond Ring",
         "category": "ring",
         "weight": 8.2,
         "price": 5200,
-        "image": "https://via.placeholder.com/300"
+        "image": "https://i.imgur.com/8LJjUdW.jpg"
     }
 ]
 
@@ -32,4 +28,4 @@ def get_products():
     return jsonify(PRODUCTS)
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=os.getenv('PORT', 5000))
+    app.run(host='0.0.0.0', port=5000)
